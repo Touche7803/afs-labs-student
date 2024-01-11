@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: acourse
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: registry.dev.afsmtddso.com/acourse-harbor-project/app@sha256:f1e30a67d39b77d42471a4f89bef8f3195eddd64ef0b18ce0f531ea624b33431
+        name: db-deployment
+        image: registry.dev.afsmtddso.com/acourse-harbor-project/db@sha256:b15159254197edd35698f77c05ad136eff444434ce6f72ef89ef76f1d6e8b4c9
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
